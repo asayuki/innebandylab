@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader';
 
@@ -11,6 +11,10 @@ export default defineConfig({
     alias: {
       '@': '/src',
     },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
   },
   server: {
     port: (process.env.APP_PORT as unknown as number) || 3002,
