@@ -36,7 +36,18 @@ steps:
     when:
       - event: push
         branch: main
-
+  - name: debug-web
+    image: oven/bun:1-alpine
+    commands:
+      - cd web
+      - bun install
+      - cat tsconfig.app.json
+      - cat src/env.d.ts
+      - ls src/
+      - bunx vue-tsc -b --diagnostics
+    when:
+      - event: push
+        branch: main
   - name: build-and-push-web
     image: docker:cli
     volumes:
