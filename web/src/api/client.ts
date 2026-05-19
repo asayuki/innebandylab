@@ -224,14 +224,21 @@ export type ApiError = {
 }
 
 export class ApiClientError extends Error implements ApiError {
+  readonly code: string
+  readonly details?: Record<string, unknown>
+  readonly status?: number
+
   constructor(
-    public readonly code: string,
+    code: string,
     message: string,
-    public readonly details?: Record<string, unknown>,
-    public readonly status?: number,
+    details?: Record<string, unknown>,
+    status?: number,
   ) {
     super(message)
     this.name = 'ApiClientError'
+    this.code = code
+    this.details = details
+    this.status = status
   }
 }
 
