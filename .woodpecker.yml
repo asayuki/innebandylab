@@ -1,0 +1,62 @@
+steps:
+  - name: test-api
+    image: oven/bun:1-alpine
+    commands:
+      - cd api
+      - bun install
+      - bun test
+
+  - name: test-web
+    image: oven/bun:1-alpine
+    commands:
+      - cd web
+      - bun install
+      - bun test
+
+  - name: build-and-push-api
+    image: docker:cli
+    volumes:
+      - /run/user/1010/docker.sock:/var/run/docker.sock
+    environment:
+      REGISTRY_URL:
+        from_secret: REGISTRY_URL
+      REGISTRY_USER:
+        from_secret: REGISTRY_USER
+      REGISTRY_PASSWORD:
+        from_secret: REGISTRY_PASSWORD
+    commands:
+      - docker login $REGISTRY_URL -u $REGISTRY_USER -p $REGISTRY_PASSWORD
+      - docker build --target prod -t $REGISTRY_URL/innebandylab-api:latest -t $REGISTRY_URL/innebandylab-api:${CI_COMMIT_SHA} ./api
+      - docker push $REGISTRY_URL/innebandylab-api:latest
+      - docker push $REGISTRY_URL/innebandylab-api:${CI_COMMIT_SHA}
+
+  - name: build-and-push-web
+    image: docker:cli
+    volumes:
+      - /run/user/1010/docker.sock:/var/run/docker.sock
+    environment:
+      REGISTRY_URL:
+        from_secret: REGISTRY_URL
+      REGISTRY_USER:
+        from_secret: REGISTRY_USER
+      REGISTRY_PASSWORD:
+        from_secret: REGISTRY_PASSWORD
+    commands:
+      - docker login $REGISTRY_URL -u $REGISTRY_USER -p $REGISTRY_PASSWORD
+      - docker build --target prod -t $REGISTRY_URL/innebandylab-web:latest -t $REGISTRY_URL/innebandylab-web:${CI_COMMIT_SHA} ./web
+      - docker push $REGISTRY_URL/innebandylab-web:latest
+      - docker push $REGISTRY_URL/innebandylab-web:${CI_COMMIT_SHA}
+
+  - name: deploy
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: DEPLOY_HOST
+      username:
+        from_secret: DEPLOY_USER
+      key:
+        from_secret: DEPLOY_KEY
+      script:
+        - cd /opt/innebandylab
+        - docker compose pull api web
+        - docker compose up -d --no-deps api web
