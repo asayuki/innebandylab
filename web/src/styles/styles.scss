@@ -1,2 +1,24 @@
-// Utils
-// Other stuff
+@use 'theme/reset';
+@use 'theme/colors';
+@use 'theme/font';
+@use 'theme/spacing';
+
+html {
+    font-size: var(--text-base);
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-feature-settings: 'cv11', 'ss01';
+    line-height: 1.5;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+}

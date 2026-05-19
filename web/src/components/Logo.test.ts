@@ -5,7 +5,7 @@ describe('Logo.vue', () => {
   it('renders the logo image', () => {
     const wrapper = mount(Logo);
     expect(wrapper.find('.logo').exists()).toBe(true);
-    expect(wrapper.text()).toBe('Innebandylab');
+    expect(wrapper.text()).toBe('InnebandyLab');
   });
 
   it('applies the correct size class when size prop is provided', () => {

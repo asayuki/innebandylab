@@ -1,0 +1,56 @@
+:root {
+    --space-mini: clamp(0.125rem, calc(0.1rem + 0.1vw), 0.25rem);
+    --space-small: clamp(0.375rem, calc(0.325rem + 0.22vw), 0.5rem);
+    --space-base: clamp(0.75rem, calc(0.625rem + 0.3vw), 1rem);
+    --space-medium: clamp(1.25rem, calc(1.0625rem + 0.3vw), 1.75rem);
+    --space-large: clamp(1.75rem, calc(1.375rem + 0.5vw), 2.5rem);
+    --space-xlarge: clamp(2.5rem, calc(1.75rem + 0.75vw), 4rem);
+    --space-xxlarge: clamp(4rem, calc(3.9375rem + 0.3vw), 4.25rem);
+}
+
+$sizes: 'mini', 'small', 'base', 'medium', 'large', 'xlarge', 'xxlarge';
+@each $size in $sizes {
+  .space-#{$size} {
+    margin: var(--space-#{$size});
+  }
+  .space-x-#{$size} {
+    margin-left: var(--space-#{$size});
+    margin-right: var(--space-#{$size});
+  }
+  .space-x-l-#{$size} {
+    margin-left: var(--space-#{$size});
+  }
+  .space-x-r-#{$size} {
+    margin-right: var(--space-#{$size});
+  }
+  .space-y-#{$size} {
+    margin-top: var(--space-#{$size});
+    margin-bottom: var(--space-#{$size});
+  }
+  .space-y-t-#{$size} {
+    margin-top: var(--space-#{$size});
+  }
+  .space-y-b-#{$size} {
+    margin-bottom: var(--space-#{$size});
+  }
+  .padding-#{$size} {
+    padding: var(--space-#{$size});
+  }
+  .padding-x-#{$size} {
+    padding-left: var(--space-#{$size});
+    padding-right: var(--space-#{$size});
+  }
+  .padding-y-#{$size} {
+    padding-top: var(--space-#{$size});
+    padding-bottom: var(--space-#{$size});
+  }
+  .gap-#{$size} {
+    gap: var(--space-#{$size});
+  }
+  .gap-x-#{$size} {
+    column-gap: var(--space-#{$size});
+  }
+  .gap-y-#{$size} {
+    row-gap: var(--space-#{$size});
+  }
+}
