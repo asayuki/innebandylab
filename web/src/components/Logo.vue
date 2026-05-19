@@ -3,7 +3,7 @@ defineProps<{ size?: string }>();
 </script>
 
 <template>
-    <p class="logo" :data-size="size">
+    <p :class="['logo', size ? `text-${size}` : '']">
         <span>Innebandy</span><span class="logo__accent">lab</span>
     </p>
 </template>
@@ -18,11 +18,6 @@ defineProps<{ size?: string }>();
     margin: 0;
     display: inline-flex;
     align-items: baseline;
-
-    $sizes: small, medium, large, xlarge;
-    @each $size in $sizes {
-        &[data-size="#{$size}"] { font-size: var(--font-size-#{$size}); }
-    }
 
     &__accent {
         color: var(--color-accent-logo, var(--color-accent));
