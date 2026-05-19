@@ -31,12 +31,8 @@ steps:
         from_secret: REGISTRY_PASSWORD
     commands:
       - docker login $REGISTRY_URL -u $REGISTRY_USER -p $REGISTRY_PASSWORD
-      - docker build --target prod -t $REGISTRY_URL/innebandylab-api:latest -t $REGISTRY_URL/innebandylab-api:${CI_COMMIT_SHA} ./api
-      - docker push $REGISTRY_URL/innebandylab-api:latest
-      - docker push $REGISTRY_URL/innebandylab-api:${CI_COMMIT_SHA}
-    when:
-      - event: push
-        branch: main
+      - docker buildx create --use --name multiarch --driver docker-container
+      - docker buildx build --platform linux/amd64,linux/arm64 --target prod --push -t $REGISTRY_URL/innebandylab-api:latest -t $REGISTRY_URL/innebandylab-api:${CI_COMMIT_SHA} ./api
 
   - name: build-and-push-web
     image: docker:cli
@@ -51,12 +47,8 @@ steps:
         from_secret: REGISTRY_PASSWORD
     commands:
       - docker login $REGISTRY_URL -u $REGISTRY_USER -p $REGISTRY_PASSWORD
-      - docker build --no-cache --target prod -t $REGISTRY_URL/innebandylab-web:latest -t $REGISTRY_URL/innebandylab-web:${CI_COMMIT_SHA} ./web
-      - docker push $REGISTRY_URL/innebandylab-web:latest
-      - docker push $REGISTRY_URL/innebandylab-web:${CI_COMMIT_SHA}
-    when:
-      - event: push
-        branch: main
+      - docker buildx create --use --name multiarch --driver docker-container
+      - docker buildx build --platform linux/amd64,linux/arm64 --target prod --push -t $REGISTRY_URL/innebandylab-web:latest -t $REGISTRY_URL/innebandylab-web:${CI_COMMIT_SHA} ./web
 
   - name: deploy
     image: appleboy/drone-ssh
