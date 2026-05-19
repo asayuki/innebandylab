@@ -4,7 +4,7 @@ steps:
     commands:
       - cd api
       - bun install
-      - bun test
+      - bun run test
     when:
       - event: [push, pull_request]
 
@@ -13,7 +13,7 @@ steps:
     commands:
       - cd web
       - bun install
-      - bun test
+      - bun run test
     when:
       - event: [push, pull_request]
 
