@@ -1,31 +1,35 @@
+
 // routes/auth.test.ts
+import { describe, it, expect, beforeEach, mock } from 'bun:test';
 import request from 'supertest';
 import bcrypt from 'bcryptjs';
 import app from '../app';
 
 // --- Mocks ---
 
-jest.mock('../db/client.ts', () => ({
-  db: { query: jest.fn() },
+mock.module('bcryptjs', () => ({
+  default: {
+    hash: mock(() => Promise.resolve('hashed-password')),
+    compare: mock(() => Promise.resolve(true)),
+  },
 }));
 
-jest.mock('../lib/jwt.ts', () => ({
-  signAccessToken: jest.fn().mockReturnValue('mock-access-token'),
-  signRefreshToken: jest.fn().mockReturnValue('mock-refresh-token'),
-  verifyRefreshToken: jest.fn(),
-  hashToken: jest.fn().mockReturnValue('mock-token-hash'),
-  generateRefreshJti: jest.fn().mockReturnValue('mock-jti'),
+mock.module('../db/client.ts', () => ({
+  db: { query: mock(() => Promise.resolve({ rows: [] })) },
 }));
 
-jest.mock('bcryptjs', () => ({
-  hash: jest.fn().mockResolvedValue('hashed-password'),
-  compare: jest.fn(),
+mock.module('../lib/jwt.ts', () => ({
+  signAccessToken: mock(() => 'mock-access-token'),
+  signRefreshToken: mock(() => 'mock-refresh-token'),
+  verifyRefreshToken: mock(() => {}),
+  hashToken: mock(() => 'mock-token-hash'),
+  generateRefreshJti: mock(() => 'mock-jti'),
 }));
 
 // --- Helpers ---
 
 import { db } from '../db/client';
-const mockDb = db.query as jest.Mock;
+const mockDb = db.query as ReturnType<typeof mock>;
 
 const validBody = {
   email: 'alice@example.com',
@@ -45,7 +49,7 @@ const mockUser = {
 
 describe('POST /auth/register', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    mockDb.mockReset();
   });
 
   it('creates a user and returns 201 with tokens', async () => {
