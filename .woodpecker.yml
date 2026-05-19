@@ -50,7 +50,7 @@ steps:
         from_secret: REGISTRY_PASSWORD
     commands:
       - docker login $REGISTRY_URL -u $REGISTRY_USER -p $REGISTRY_PASSWORD
-      - docker build --target prod -t $REGISTRY_URL/innebandylab-web:latest -t $REGISTRY_URL/innebandylab-web:${CI_COMMIT_SHA} ./web
+      - docker build --no-cache --target prod -t $REGISTRY_URL/innebandylab-web:latest -t $REGISTRY_URL/innebandylab-web:${CI_COMMIT_SHA} ./web
       - docker push $REGISTRY_URL/innebandylab-web:latest
       - docker push $REGISTRY_URL/innebandylab-web:${CI_COMMIT_SHA}
     when:
