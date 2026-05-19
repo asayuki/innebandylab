@@ -59,18 +59,21 @@ steps:
         branch: main
 
   - name: deploy
-    image: appleboy/drone-ssh
-    settings:
-      host:
+    image: alpine
+    environment:
+      DEPLOY_HOST:
         from_secret: DEPLOY_HOST
-      username:
+      DEPLOY_USER:
         from_secret: DEPLOY_USER
-      key:
+      DEPLOY_KEY:
         from_secret: DEPLOY_KEY
-      script:
-        - cd /opt/innebandylab
-        - docker compose pull api web
-        - docker compose up -d --no-deps api web
+    commands:
+      - apk add --no-cache openssh-client
+      - mkdir -p ~/.ssh
+      - echo "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+      - chmod 600 ~/.ssh/id_ed25519
+      - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
+      - ssh -i ~/.ssh/id_ed25519 $DEPLOY_USER@$DEPLOY_HOST "cd /opt/innebandylab && docker compose pull api web && docker compose up -d --no-deps api web"
     when:
       - event: push
         branch: main
