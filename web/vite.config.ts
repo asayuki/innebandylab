@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: (process.env.APP_PORT as unknown as number) || 3002,
+    port: (process.env.APP_PORT as unknown as number) || 3001,
     host: '0.0.0.0',
     proxy: {
       '/api': {

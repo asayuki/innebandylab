@@ -11,17 +11,14 @@ describe('Logo.vue', () => {
   it('applies the correct size class when size prop is provided', () => {
     const wrapper = mount(Logo, {
       props: {
-        size: 'large',
+        size: '--t-h1',
       },
     });
-    expect(wrapper.classes()).toContain('text-large');
+    expect(wrapper.element.style.fontSize).toBe('var(--t-h1)');
   });
 
   it('does not apply size class when size prop is not provided', () => {
     const wrapper = mount(Logo);
-    expect(wrapper.classes()).not.toContain('text-small');
-    expect(wrapper.classes()).not.toContain('text-medium');
-    expect(wrapper.classes()).not.toContain('text-large');
-    expect(wrapper.classes()).not.toContain('text-xlarge');
+    expect(wrapper.element.style.fontSize).toBe('');
   });
 });

@@ -1,0 +1,96 @@
+// ─────────────────────────────────────────────
+// Innebandylab · Typography
+// ─────────────────────────────────────────────
+
+// ── Font stacks ───────────────────────────────
+
+$font-serif: 'Inter Tight', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+$font-mono:  'JetBrains Mono', 'SF Mono', monospace;
+
+// ── Fluid type scale ──────────────────────────
+// Base size scales linearly from $base-min px at $vw-min
+// up to $base-max px at $vw-max via clamp().
+// All rem tokens inherit from this fluid base.
+
+$base-min: 14;    // px at 360 vw  (mobile)
+$base-max: 22;    // px at 3840 vw (4k)
+$vw-min:   360;
+$vw-max:   3840;
+$ratio:    1.25;  // modular scale ratio
+
+// ── Type scale tokens ─────────────────────────
+// Built as powers of $ratio relative to 1rem (the fluid base).
+// exponent 6 = display, 5 = h1 … 0 = body … -2 = eyebrow
+
+$t-display: 4.5rem;  // ratio^6
+$t-h1:      3.052rem;  // ratio^5
+$t-h2:      2.441rem;  // ratio^4
+$t-h3:      1.953rem;  // ratio^3
+$t-h4:      1.563rem;  // ratio^2
+$t-body-l:  1.25rem;   // ratio^1
+$t-body:    1rem;      // base
+$t-label:   0.8rem;    // ratio^-1
+$t-mono:    0.72rem;
+$t-eyebrow: 0.64rem;   // ratio^-2
+
+// ── CSS custom properties ─────────────────────
+
+:root {
+    // Font families
+    --serif: #{$font-serif};
+    --mono:  #{$font-mono};
+
+    // Fluid base configuration (used by JS tweaks panel)
+    --base-min: #{$base-min};
+    --base-max: #{$base-max};
+    --vw-min:   #{$vw-min};
+    --vw-max:   #{$vw-max};
+    --ratio:    #{$ratio};
+
+    // Type scale
+    --t-display: #{$t-display};
+    --t-h1:      #{$t-h1};
+    --t-h2:      #{$t-h2};
+    --t-h3:      #{$t-h3};
+    --t-h4:      #{$t-h4};
+    --t-body-l:  #{$t-body-l};
+    --t-body:    #{$t-body};
+    --t-label:   #{$t-label};
+    --t-mono:    #{$t-mono};
+    --t-eyebrow: #{$t-eyebrow};
+}
+
+// ── Fluid html font-size ──────────────────────
+// Scales linearly between $base-min and $base-max.
+// Below 360 vw stays at min; above 3840 vw stays at max.
+
+h1 {
+    font-size: var(--t-h1);
+    &.display {
+        font-size: var(--t-display);
+    }
+}
+h2 { font-size: var(--t-h2); }
+h3 { font-size: var(--t-h3); }
+h4 { font-size: var(--t-h4); }
+p { font-size: var(--t-body); }
+label { font-size: var(--t-label); }
+code { font-size: var(--t-mono); }
+.eyebrow { font-size: var(--t-eyebrow); }
+
+html {
+    font-size: clamp(
+        #{$base-min * 1px},
+        calc(
+            #{$base-min * 1px} +
+            #{($base-max - $base-min)} *
+            (100vw - #{$vw-min * 1px}) /
+            #{($vw-max - $vw-min)}
+        ),
+        #{$base-max * 1px}
+    );
+
+    &.no-fluid {
+        font-size: #{$base-max * 1px};
+    }
+}

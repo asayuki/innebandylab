@@ -3,7 +3,7 @@ defineProps<{ size?: string; beta?: boolean; }>();
 </script>
 
 <template>
-    <p :class="['logo', size ? `text-${size}` : 'text-base']">
+    <p class="logo" :style="size ? { fontSize: `var(${size})` } : {}">
         <span v-if="beta" class="logo__beta">BETA</span>
         <span>Innebandy</span><span class="logo__accent">Lab</span>
     </p>
@@ -13,31 +13,34 @@ defineProps<{ size?: string; beta?: boolean; }>();
 .logo {
     font-family: var(--font-ui);
     font-weight: 600;
-    letter-spacing: -0.1rem;
+    letter-spacing: -0.04rem;
     line-height: 1;
-    margin: 0;
     display: inline-flex;
     align-items: baseline;
     position: relative;
+    font-size: var(--t-body);
+    padding: 0;
+    margin: 0;
 
     &__accent {
-        color: var(--accent-primary);
+        color: var(--accent);
         font-style: italic;
         font-weight: 900;
     }
 
     &__beta {
         position: absolute;
-        top: -20%;
-        left: 45%;
-        background-color: var(--accent-primary);
+        background-color: var(--accent);
         color: white;
-        font-size: var(--text-mini);
+        font-size: var(--t-eyebrow);
         line-height: 1;
+        left: 50%;
         letter-spacing: 0rem;
-        padding: 0.25rem 0.5rem;
+        display: flex;
+        padding: .25rem;
         border-radius: 0.25rem;
         font-weight: 700;
+        transform: translateY(-70%) translateX(-50%);
     }
 }
 </style>

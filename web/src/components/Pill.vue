@@ -4,10 +4,26 @@ defineProps<{
     text: string;
     link?: string;
 }>();
+
+const emit = defineEmits<{
+    click: [event: MouseEvent];
+}>();
+
+const handleClick = (event: MouseEvent) => {
+    event.preventDefault();
+    emit('click', event);
+};
+
 </script>
 
 <template>
-    <component :is="link ? 'a' : 'span'" :href="link" class="pill" :class="{ 'pill--pulse': pulse }">
+    <component
+        :is="link ? 'a' : 'span'"
+        :href="link"
+        class="pill"
+        :class="{ 'pill--pulse': pulse, 'cursor-pointer': !!link }"
+        @click="handleClick"
+    >
         {{ text }}
     </component>
 </template>
@@ -16,14 +32,28 @@ defineProps<{
 .pill {
     display: inline-flex;
     align-items: center;
-    color: var(--text-secondary);
-    font-family: var(--font-mono);
-    font-size: var(--text-mini);
+    color: var(--ink-2);
+    font-family: var(--mono);
+    font-size: var(--t-mono);
     justify-content: center;
     padding: 0.25rem 0.75rem;
-    border: 1px solid var(--border-primary);
+    border: 1px solid var(--rule);
     border-radius: 1rem;
     position: relative;
+
+    &.uppercase {
+        text-transform: uppercase;
+    }
+
+    &.cursor-pointer {
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: var(--accent);
+            cursor: pointer;
+        }
+    }
 
     &--pulse {
 
@@ -32,7 +62,7 @@ defineProps<{
             display: inline-block;
             width: 0.5rem;
             height: 0.5rem;
-            background-color: var(--accent-primary);
+            background-color: var(--accent);
             border-radius: 50%;
             position: absolute;
             left: 0.85rem;

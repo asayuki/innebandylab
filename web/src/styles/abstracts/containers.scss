@@ -1,0 +1,126 @@
+// ─────────────────────────────────────────────
+// Innebandylab · Containers
+// ─────────────────────────────────────────────
+// Two axes of control:
+//
+//   WIDTH  — how wide the content column is
+//   BLEED  — whether the background reaches the viewport edge
+//
+// ── Width tokens ──────────────────────────────
+//
+//   .container          →  87.5rem  / ~1400px  (default, main content)
+//   .container--wide    → 100rem    / ~1600px  (dashboards, tables)
+//   .container--narrow  →  45rem    / ~720px   (articles, forms)
+//   .container--full    →  100%     (no max-width constraint)
+//
+// ── Bleed modifier ────────────────────────────
+//
+//   [no modifier]       →  content + padding only
+//   .section--bleed     →  full-viewport background, container inside
+//
+// ── Usage examples ────────────────────────────
+//
+//   <!-- Centered content, full-width tinted background -->
+//   <section class="section--bleed bg-paper-2">
+//     <div class="container"> … </div>
+//   </section>
+//
+//   <!-- Edge-to-edge hero, no width cap -->
+//   <section class="section--bleed">
+//     <div class="container--full"> … </div>
+//   </section>
+//
+//   <!-- Narrow article body -->
+//   <main class="container container--narrow"> … </main>
+//
+// ─────────────────────────────────────────────
+@use '../abstracts/spacing' as sp;
+
+// ── Config ────────────────────────────────────
+
+$container-default:  87.5rem;   // ~1400px @ 16px base
+$container-wide:    100rem;     // ~1600px
+$container-narrow:   45rem;     // ~720px
+$container-gutter:  sp.$space-lg; // 2rem / 32px — breathing room on small viewports
+
+// ── Base container ────────────────────────────
+// Centered, with horizontal gutter padding that collapses on mobile.
+
+.container {
+  width: 100%;
+  max-width: $container-default;
+  margin-inline: auto;
+  padding-inline: $container-gutter;
+
+  // Tighter gutter on small screens
+  @media (max-width: 40rem) {
+    padding-inline: sp.$space-base; // 1rem / 16px
+  }
+}
+
+// ── Width modifiers ───────────────────────────
+
+.container--wide {
+  max-width: $container-wide;
+}
+
+.container--narrow {
+  max-width: $container-narrow;
+}
+
+.container--full {
+  max-width: 100%;
+  padding-inline: 0; // full bleed — caller controls inner spacing
+}
+
+// ── Section wrappers ──────────────────────────
+// .section sets vertical rhythm.
+// .section--bleed lets the background span the full viewport
+// while keeping the inner .container centered.
+
+.section {
+  padding-block: sp.$space-2xl; // 3.5rem / 56px top + bottom
+}
+
+.section--bleed {
+  // Background spans full viewport width.
+  // Pair with a background utility or inline style.
+  width: 100%;
+}
+
+// Tighter section for dense UI (dashboards, tables)
+.section--compact {
+  padding-block: sp.$space-xl;  // 2.5rem / 40px
+}
+
+// Generous section for marketing / hero content
+.section--loose {
+  padding-block: sp.$space-2xl sp.$space-2xl;
+  @media (min-width: 60rem) {
+    padding-block: 5.5rem;       // ~88px — matches ds-hero original
+  }
+}
+
+// ── Background helpers ────────────────────────
+// Semantic surface colors from the design system palette.
+
+.bg-paper   { background: var(--paper); }
+.bg-paper-2 { background: var(--paper-2); }
+.bg-ink     { background: var(--ink);   color: var(--paper); }
+.bg-accent  { background: var(--accent); color: var(--ink); }
+
+// ── Divider ───────────────────────────────────
+// Replaces inline border-bottom on sections.
+
+.section--bordered {
+  border-bottom: 1px solid var(--rule);
+}
+
+// ── CSS custom properties (optional runtime use) ──
+
+:root {
+  --container-default: #{$container-default};
+  --container-wide:    #{$container-wide};
+  --container-narrow:  #{$container-narrow};
+  --container-gutter:  #{$container-gutter};
+}

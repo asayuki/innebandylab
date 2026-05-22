@@ -9,7 +9,7 @@ declare module 'vue-router' {
     interface RouteMeta {
         requiresAuth?: boolean;
         public?: boolean;
-        layout?: 'beta' | 'auth' | 'public';
+        layout?: 'beta' | 'app' | 'public';
         requiresPro?: boolean;
         requiresClub?: boolean;
         requiresAdmin?: boolean;
@@ -25,6 +25,50 @@ const routes: RouteRecordRaw[] = [
             layout: 'beta',
         },
     },
+    /*{
+        path: '/start',
+        name: 'start',
+        component: () => import('@/views/StartView.vue'),
+        meta: {
+            layout: 'public',
+        },
+    },
+    {
+        path: '/hem',
+        name: 'hem',
+        component: () => import('@/views/DashboardView.vue'),
+        meta: {
+            layout: 'app',
+            // requiresAuth: true,
+        },
+    },
+    {
+        path: '/kalender',
+        name: 'kalender',
+        component: () => import('@/views/DashboardView.vue'),
+        meta: {
+            layout: 'app',
+            // requiresAuth: true,
+        },
+    },
+    {
+        path: '/ovningar',
+        name: 'ovningar',
+        component: () => import('@/views/DashboardView.vue'),
+        meta: {
+            layout: 'app',
+            // requiresAuth: true,
+        },
+    },
+    {
+        path: '/klubb',
+        name: 'klubb',
+        component: () => import('@/views/DashboardView.vue'),
+        meta: {
+            layout: 'app',
+            // requiresAuth: true,
+        },
+    },*/
 ];
 
 const router = createRouter({

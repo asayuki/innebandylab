@@ -4,6 +4,6 @@ import Pill from '@/components/Pill.vue';
 </script>
 
 <template>
-  <Logo size="xxlarge" :beta="true" />
-  <Pill text="Beta — Kommer snart!" pulse class="space-y-t-large" />
+  <Logo :beta="true" size="--t-h1" />
+  <Pill text="— Kommer snart! —" pulse class="uppercase" style="margin: var(--space-md)" />
 </template>

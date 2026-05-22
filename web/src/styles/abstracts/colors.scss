@@ -1,0 +1,33 @@
+$ink:    #16181a;
+$ink-2:  #5d5b56;
+$ink-3:  #908d86;
+$ink-4:  #b3afa5;
+
+$rule:    #e5e1d8;
+$rule-2:  #d6d1c5;
+$paper:   #faf8f3;
+$paper-2: #f0ede5;
+
+// Accent
+$accent: #c9f24f; // Lime · Ball
+$blue:  #2a6fdb; // Team A · Defense
+$red:   #d9433a; // Team B · Shot · Fitness
+$amber: #e6a83a; // Goalie · Pass · Transition
+
+:root {
+    // Brand core
+    --ink:    #{$ink};
+    --ink-2:  #{$ink-2};
+    --ink-3:  #{$ink-3};
+    --ink-4:  #{$ink-4};
+    --rule:   #{$rule};
+    --rule-2: #{$rule-2};
+    --paper:  #{$paper};
+    --paper-2:#{$paper-2};
+    --accent: #{$accent};
+
+    // Domain colors
+    --blue:  #{$blue};
+    --red:   #{$red};
+    --amber: #{$amber};
+}

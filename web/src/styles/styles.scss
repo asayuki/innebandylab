@@ -1,4 +1,20 @@
-@use 'theme/reset';
+@use 'abstracts/colors';
+@use 'abstracts/spacing';
+@use 'abstracts/typography';
+@use 'abstracts/containers';
+
+@use 'base/reset';
+@use 'components/buttons';
+
+body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/*@use 'theme/reset';
 @use 'theme/colors';
 @use 'theme/font';
 @use 'theme/spacing';
@@ -21,4 +37,4 @@ body {
     flex-direction: column;
     min-width: 0;
     min-height: 0;
-}
+}*/
