@@ -26,15 +26,12 @@ import Header from '@/partials/Header.vue';
         <div class="stack row-lg">
             <div>
                 <span>Innebandylab AB</span>
-                <span>Org. nr. 559123-4567</span>
             </div>
             <div>
                 <span>Innebandylab AB</span>
-                <span>Org. nr. 559123-4567</span>
             </div>
             <div>
                 <span>Innebandylab AB</span>
-                <span>Org. nr. 559123-4567</span>
             </div>
         </div>
         <p class="eyebrow">© 2026 Innebandylab AB</p>

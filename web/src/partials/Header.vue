@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
+import { useRoute, useRouter } from 'vue-router';
 import Logo from '@/components/Logo.vue';
 import Avatar from '@/components/Avatar/Avatar.vue';
-import { ref, watch, onUnmounted } from 'vue';
+import { ref, watch, computed, onUnmounted } from 'vue';
 
 const mobileMenuOpen = ref(false);
 const scrollY = ref(0);
+
+const route = useRoute();
+const router = useRouter();
+const authStore = useAuthStore();
+
+const layout = computed(() => (route.meta.layout as string | undefined) ?? 'public');
 
 const toggleMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
@@ -22,19 +29,18 @@ onUnmounted(() => {
   window.scrollTo(0, scrollY.value);
 });
 
-const authStore = useAuthStore();
 </script>
 
 <template>
     <header class="main-header">
-        <Logo size="--t-h4" :beta="true" />
+        <Logo :size="layout === 'app' ? '--t-h5' : '--t-h3'" :beta="true" />
 
         <div class="row gap-3 ml-a mobile-extras">
             <a href="#" class="b b-primary">Skapa konto</a>
             <button class="b b-outline square mmt" aria-label="Open mobile menu" @click="toggleMenu()"></button>
         </div>
 
-        <nav :data-show="mobileMenuOpen">
+        <nav :data-show="mobileMenuOpen" :data-app-nav="layout === 'app'">
             <div class="row nav-mobile-header">
                 <Logo size="--t-body" :beta="true" />
                 <button class="b b-secondary square mmt cross ml-a" aria-label="Close mobile menu" @click="toggleMenu()"></button>
@@ -106,7 +112,7 @@ header.main-header {
     padding: var(--space-md) var(--space-md);
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 5;
 
     &.thin {
         padding: var(--space-sm) var(--space-md);
@@ -172,6 +178,8 @@ header.main-header {
 
         ul {
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
         
         .user-info {
@@ -258,6 +266,66 @@ header.main-header {
                 border-bottom: 1px solid var(--rule);
                 display: flex;
                 padding: var(--space-base) var(--space-md);
+            }
+        }
+
+        @media (min-width: 769px) {
+            // margin-left: auto;
+            display: flex;
+            align-items: center;
+            flex: 1;
+            flex-direction: row;
+
+
+            .user-info {
+                order: 2;
+            }
+
+            ul {
+                gap: var(--space-lg);
+                order: 1;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .nav-link-sub {
+                display: none;
+            }
+
+            .user-info {
+                display: flex;
+            }
+
+            li {
+                a {
+                    color: var(--ink);
+                    display: flex;
+                    font-size: var(--t-body);
+                    text-decoration: none;
+                }
+            }
+
+            &[data-app-nav="true"] {
+                //margin-right: auto;
+
+                ul {
+                    background-color: var(--paper-2);
+                    border-radius: var(--r-full);
+                    padding: var(--space-xs);
+                    gap: var(--space-sm);
+
+                    li {
+                        a {
+                            font-size: var(--t-label);
+                            padding: var(--space-xs);
+                            border-radius: var(--r-full);
+
+                            &:hover {
+                                background-color: var(--paper);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

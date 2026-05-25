@@ -23,7 +23,7 @@ defineProps<{ size?: string; beta?: boolean; }>();
     margin: 0;
 
     &__accent {
-        color: var(--accent);
+        color: var(--ink);
         font-style: italic;
         font-weight: 900;
     }
@@ -31,8 +31,8 @@ defineProps<{ size?: string; beta?: boolean; }>();
     &__beta {
         position: absolute;
         background-color: var(--accent);
-        color: white;
-        font-size: var(--t-eyebrow);
+        color: black;
+        font-size: calc(var(--t-eyebrow) - 3px);
         line-height: 1;
         left: 50%;
         letter-spacing: 0rem;

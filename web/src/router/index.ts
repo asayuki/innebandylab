@@ -25,7 +25,7 @@ const routes: RouteRecordRaw[] = [
             layout: 'beta',
         },
     },
-    /*{
+    {
         path: '/start',
         name: 'start',
         component: () => import('@/views/StartView.vue'),
@@ -68,7 +68,7 @@ const routes: RouteRecordRaw[] = [
             layout: 'app',
             // requiresAuth: true,
         },
-    },*/
+    },
 ];
 
 const router = createRouter({
