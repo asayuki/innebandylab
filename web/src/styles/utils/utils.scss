@@ -1,0 +1,59 @@
+@use '../abstracts/spacing' as sp;
+ 
+// ── Flex helpers ──────────────────────────────
+ 
+.stack { display: flex; flex-direction: column; }
+.row   { display: flex; }
+.wrap  { flex-wrap: wrap; }
+
+/* Stack on mobile, switch to row on larger screens */
+@media (min-width: 768px) {
+  .row-md { display: flex; flex-direction: row; }
+}
+
+/* Stack on mobile, switch to row on larger screens (lg) */
+@media (min-width: 1024px) {
+  .row-lg { display: flex; flex-direction: row; }
+}
+
+/* Row on mobile, stack on larger screens */
+@media (min-width: 768px) {
+  .stack-md { display: flex; flex-direction: column; }
+}
+ 
+.ai-c  { align-items: center; }
+.jc-sb { justify-content: space-between; }
+
+.ml-a { margin-left: auto; }
+.mr-a { margin-right: auto; }
+ 
+// ── Gap scale (mirrors spacing tokens) ───────
+ 
+.gap-1  { gap: sp.$space-1; }   // 0.25rem /  4px
+.gap-2  { gap: sp.$space-2; }   // 0.375rem /  6px
+.gap-3  { gap: sp.$space-3; }   // 0.5rem   /  8px
+.gap-4  { gap: sp.$space-4; }   // 0.625rem / 10px
+.gap-5  { gap: sp.$space-5; }   // 0.75rem  / 12px
+.gap-6  { gap: sp.$space-6; }   // 0.875rem / 14px
+.gap-7  { gap: sp.$space-base; }// 1rem     / 16px
+.gap-8  { gap: sp.$space-8; }   // 1.25rem  / 20px
+.gap-9  { gap: sp.$space-md; }  // 1.5rem   / 24px
+.gap-10 { gap: sp.$space-lg; }  // 2rem     / 32px
+.gap-11 { gap: sp.$space-xl; }  // 2.5rem   / 40px
+.gap-12 { gap: sp.$space-2xl; } // 3.5rem   / 56px
+ 
+// Semantic aliases for the most common gap values
+.gap-xs   { gap: sp.$space-xs; }
+.gap-sm   { gap: sp.$space-sm; }
+.gap-base { gap: sp.$space-base; }
+.gap-md   { gap: sp.$space-md; }
+.gap-lg   { gap: sp.$space-lg; }
+
+// Show/hide utilities for mobile/desktop
+.mobile-only { display: none; }
+.desktop-only { display: block; }
+
+@media (max-width: 768px) {
+  .mobile-only { display: block; }
+  .desktop-only { display: none; }
+}

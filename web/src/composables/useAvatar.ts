@@ -1,3 +1,5 @@
+import { computed } from 'vue';
+
 export const useAvatar = (props) => {
     const initials = computed(() => {
         if (props.initials) {

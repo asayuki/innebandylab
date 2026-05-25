@@ -19,12 +19,9 @@ const layout = computed(() => (route.meta.layout as string | undefined) ?? 'publ
 </script>
 
 <template>
-    <BetaLayout v-if="layout === 'beta'">
-        <router-view />
-    </BetaLayout>
-    <!--<PublicLayout v-else-if="layout === 'public'">
+    <BetaLayout v-if="layout === 'beta'" />
+    <PublicLayout v-else-if="layout === 'public'">
         <router-view />
     </PublicLayout>
     <AppLayout v-else-if="layout === 'app'" />
-    -->
 </template>

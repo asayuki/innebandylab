@@ -101,6 +101,11 @@ router.beforeEach((to) => {
         return { path: '/' };
     }
 
+    // Add 404 handling for unmatched routes
+    if (to.matched.length === 0) {
+        return { path: '/' };
+    }
+
     return true;
 });
 

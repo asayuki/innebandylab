@@ -1,19 +1,9 @@
 <script setup lang="ts">
-import Logo from '@/components/Logo.vue';
+import Header from '@/partials/Header.vue';
 </script>
 
 <template>
-    <header>
-        <Logo size="--t-h4" :beta="true" />
-
-        <nav>
-            <a href="#functions">Funktioner</a>
-            <a href="#prices">Priser</a>
-            <a href="#">Logga in</a>
-            <button class="b b-primary b-lg">Skapa konto -></button>
-        </nav>
-    </header>
-
+    <Header />
     <section id="hero" class="section section--bordered">
         <div class="container">
             <h1 class="display">Träna bättre.<br />Coaca <em>smartare</em></h1>
@@ -32,48 +22,24 @@ import Logo from '@/components/Logo.vue';
         </div>
     </section>
 
-    <footer>
-
+    <footer class="main-footer">
+        <div class="stack row-lg">
+            <div>
+                <span>Innebandylab AB</span>
+                <span>Org. nr. 559123-4567</span>
+            </div>
+            <div>
+                <span>Innebandylab AB</span>
+                <span>Org. nr. 559123-4567</span>
+            </div>
+            <div>
+                <span>Innebandylab AB</span>
+                <span>Org. nr. 559123-4567</span>
+            </div>
+        </div>
+        <p class="eyebrow">© 2026 Innebandylab AB</p>
     </footer>
 </template>
 
 <style scoped lang="scss">
-header {
-    align-items: center;
-    background: color-mix(in srgb, var(--paper) 60%, transparent);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--rule);
-    display: flex;
-    flex-direction: row;
-    padding: var(--space-md) var(--space-md);
-    justify-content: space-between;
-    position: sticky;
-}
-
-nav {
-    align-items: center;
-    display: flex;
-    gap: var(--space-lg);
-
-    a:not(.b) {
-        color: var(--ink-2);
-        font-size: var(--t-body-l);
-        font-weight: var(--fw-medium);
-        text-decoration: none;
-        transition: color 0.2s ease;
-
-        &:hover {
-            color: var(--ink);
-        }
-    }
-}
-
-/*section {
-    border-bottom: 1px solid var(--rule);
-    padding: var(--space-2xl) var(--space-md);
-}
-
-section#prices {
-    background-color: var(--paper-2);
-}*/
 </style>

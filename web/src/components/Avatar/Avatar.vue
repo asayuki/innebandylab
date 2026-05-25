@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue';
 import AvatarDom from './AvatarDom.vue'
 import AvatarCanvas from './AvatarCanvas.vue'
 

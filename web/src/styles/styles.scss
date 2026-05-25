@@ -3,8 +3,13 @@
 @use 'abstracts/typography';
 @use 'abstracts/containers';
 
-@use 'base/reset';
 @use 'components/buttons';
+
+@use 'base/reset';
+@use 'base/header';
+@use 'base/footer';
+
+@use 'utils/utils';
 
 body {
     background-color: var(--paper);
